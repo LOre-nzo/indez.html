@@ -1,1 +1,178 @@
-<h1> uborjgipeiojg </h1>
+<head> 
+</head>
+<body> 
+  <script src = "https://cdn.codehs.com/chs-js-lib/0.2.21/dist/chs.iife.js"> 
+    const NUM_ROWS = 8;
+const BRICK_TOP_OFFSET = 10;
+const BRICK_SPACING = 2;
+const NUM_BRICKS_PER_ROW = 10;
+const BRICK_HEIGHT = 10;
+const SPACE_FOR_BRICKS = getWidth() - (NUM_BRICKS_PER_ROW + 1) * BRICK_SPACING;
+const BRICK_WIDTH = SPACE_FOR_BRICKS / NUM_BRICKS_PER_ROW;
+let x = 10; 
+ let YPOS = BRICK_TOP_OFFSET; 
+ let balls
+ let elem 
+ let utt 
+ let score = 0
+ const DELAY = 100
+/* Constants for ball and paddle */
+const PADDLE_WIDTH = 80;
+const PADDLE_HEIGHT = 15;
+const PADDLE_OFFSET = 10;
+let rectan
+let rect 
+const BALL_RADIUS = 15;
+ let dx = 20
+ let dy = 20
+function main() {
+   new2(); 
+   new3(); 
+   new4();
+   new5();
+   paddle(); 
+    balls = circle(15, 150 , 150 , "black")
+   setTimer(move,DELAY);
+   mouseMoveMethod(movePaddle); 
+  
+
+ 
+}
+
+main(); 
+function Brick (color ) {
+   for( let i = 0; i < NUM_BRICKS_PER_ROW ; i++){ 
+     rect = new Rectangle ( BRICK_WIDTH , BRICK_HEIGHT )
+    rect.setPosition(i*(BRICK_WIDTH + BRICK_SPACING), YPOS)
+    rect.setColor(color)
+    add(rect) 
+    
+    x = x + BRICK_SPACING 
+    }
+}
+
+function circle (RAD,x,y,color) {
+    let circle = new Circle (RAD) 
+    circle.setPosition(x,y)
+    circle.setColor(color)
+    add ( circle ); 
+    
+    return circle; 
+}
+
+function new2 () {
+    for(let j = 0; j < 2; j++) {
+        Brick("red"); 
+      YPOS += BRICK_SPACING + BRICK_HEIGHT
+    }
+}
+    function new3 () {
+    for(let j = 0; j < 2; j++) {
+        Brick("orange")
+         YPOS += BRICK_SPACING + BRICK_HEIGHT
+    }
+}
+    function new4 () {
+    for(let j = 0; j < 2; j++) {
+        Brick("green"); 
+         YPOS += BRICK_SPACING + BRICK_HEIGHT
+    }
+}
+    function new5 () {
+    for(let j = 0; j < 2; j++) {
+        Brick("blue"); 
+         YPOS += BRICK_SPACING + BRICK_HEIGHT
+    }
+}
+ function move () {
+     sizeUp(); 
+     cheak(); 
+     balls.move(dx,dy); 
+ }
+   /// buut = getElementAt(balls.getX() , balls.getY() - balls.getRadius()); 
+ function cheak () {
+ if(balls.getX() + balls.getRadius() >= getWidth()){
+		dx = -dx;
+	}
+	
+
+	if(balls.getX() - balls.getRadius() <= 0){
+		dx = -dx;
+	}
+	
+	if(balls.getY() + balls.getRadius() >= getHeight()){
+	     utt = new Text ("GAME OVER " + " SCORE= " + score , "20pt Arial")
+	   utt.setPosition(30,150 )
+	   remove(Brick)
+	   remove(rectan)
+	   remove(balls)
+	   add (utt) 
+	   
+
+	} else {
+        if(score == 25){
+	   let but = new Text (" YOU WIN " + " SCORE= " + score  ,  "20pt Arial")
+	   but.setPosition( 30 ,150 )
+	   add(but)
+	   remove(Brick)
+	   remove(rectan)
+	   remove(balls)
+	   remove(score)
+	   remove(utt) 
+        }
+}
+	
+	// Bounce off left wall
+	if(balls.getY() - balls.getRadius() <= 0){
+		dy = -dy;
+		
+		
+	}
+	
+ let  buut = getElementAt(balls.getX() , balls.getY() +- balls.getRadius()); 
+ if (buut != null){
+     if(buut == rectan) {
+         dy =- dy; 
+     }  else {
+         remove(buut)
+         dy =- dy 
+         score = score + 1 
+         }
+     
+        }
+    }
+
+    function sizeUp () {
+    if(score >= 10 && score <= 10.2){
+        balls.setRadius(BALL_RADIUS*2)
+   } else {
+         if(score >= 5 && score <= 5){
+            nbb(); 
+             setTimer(nbb,400); 
+        } 
+	   
+    }
+
+
+}
+
+
+function paddle (x,y)  {
+ rectan = new Rectangle (PADDLE_WIDTH,PADDLE_HEIGHT); 
+rectan.setPosition( 150 , 400 + PADDLE_OFFSET); 
+rectan.setColor("black")
+add (rectan); 
+ return rectan; 
+}
+/// fixed
+function movePaddle (e) {
+     let  posP = e.getX();
+    rectan.setPosition(posP-35, 400 + PADDLE_OFFSET); 
+    
+}
+
+function nbb () {
+    balls.setColor(Randomizer.nextColor()); 
+}
+  </script>
+</body>
